@@ -1,4 +1,3 @@
-# Q&A with Documents 📜
 <h1 align="center">💎DoChatBot💎</h1>
 <h4 align="center">"Let's chat with your <b>Documents </b>"</h4>
 
@@ -50,4 +49,6 @@ This is an Implementation of the RAG (Retrieval-Augmented Generation) that is bu
     ```
 
 ## Additional Features
+- Audio to Text
+- Add other API_KEY (OpenAI, Gemini, etc)
 soon updated
