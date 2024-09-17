@@ -38,9 +38,11 @@ def main():
         st.session_state.conversation = None
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = None
+    if 'uploaded_file' not in st.session_state:
+        st.session_state.uploaded_file = None
         
     
-    st.set_page_config(page_title="Q&A with Documents", page_icon="📜")
+    st.set_page_config(page_title="DoChatBot", page_icon="📜")
     st.title("📜Q&A with Documents")
     
     ## Add any model here.....
@@ -56,16 +58,26 @@ def main():
     
         uploaded_file = st.sidebar.file_uploader(label="Upload PDF files", type=["pdf"], accept_multiple_files=True)
         
+
         if not uploaded_file:
             st.info("Please upload **PDF documents** to continue.")
             st.stop()
-
-    
-        if uploaded_file:
-            with st.spinner("🚀Processing..."):
-                st.session_state.conversation = processing(uploaded_file, inference, model_api, model_type)
+        else:
+            st.session_state.uploaded_file = uploaded_file
+            b1, b2 = st.columns(2)
+            with b1:
+                bprocess = st.sidebar.button("🚀Process")
+                if bprocess:
+                    with st.spinner("🚀Processing..."):
+                       st.session_state.conversation = processing(uploaded_file, inference, model_api, model_type)            
+            with b2:
+                breset = st.sidebar.button("⚙️Reset..")
+                if breset:
+                    with st.spinner("🥱Resetting session..."):
+                        st.session_state.conversation = None
+                        st.session_state.chat_history = None
             
-            # Display chat interface if documents have been processed
+            
             if user_query := st.chat_input(placeholder="Ask me anything about the document!"):    
                 with st.spinner("💡Thinking..."):       
                     response = st.session_state.conversation({"question": user_query})
@@ -74,13 +86,6 @@ def main():
                     for i, message in enumerate(st.session_state.chat_history):
                         with st.chat_message("user" if i % 2 == 0 else "assistant"):
                             st.markdown(message.content)
-            
-        reset_conversation = st.sidebar.button("⚙️Reset Session")
-        if reset_conversation:
-            with st.spinner("🥱Resetting..."):
-                st.session_state.conversation = None
-                st.session_state.chat_history = None
-            
-    
+        
 if __name__ == "__main__":
     main()
