@@ -58,7 +58,7 @@ def build_conversation(model_type, model_api, retriever):
     return rag_chain
     
     
-    
+## Newer config
 def config_conversation(inference, model_api, retriever, model_type):
     ## Can add any model in it
     if inference == 'Groq':
