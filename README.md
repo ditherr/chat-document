@@ -35,8 +35,6 @@ This is an Implementation of the RAG (Retrieval-Augmented Generation) that is bu
 3. **Create and Activate Environment**
     ```
     conda create -p venv python==3.10.12 -y
-
-    ## activate env
     conda activate venv/
     ```
 4. **Install The Requirements**
@@ -48,7 +46,13 @@ This is an Implementation of the RAG (Retrieval-Augmented Generation) that is bu
     streamlit run app.py
     ```
 
+### 👑Streamlit Secrets Key
+This part is adding a secret API key by using **Streamlit Secrets**, it similar with the `.env` or how `os.getenv()` works to get the secret API keys from the environment.  We can store any secret keys or variables securely there (in this project it is `GROQ_API_KEY`).
+
+If you want to use it, please add it in `secrets.toml` file. For more detail how to create this Secrets Key, you can read the documentation here: [Secrets Management](https://docs.streamlit.io/develop/concepts/connections/secrets-management)
+
 ## Additional Features
 - Audio to Text
 - Add other API_KEY (OpenAI, Gemini, etc)
-soon updated
+
+*(More features will be updated)*

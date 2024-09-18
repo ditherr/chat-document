@@ -13,7 +13,12 @@ from src.configchat import build_conversation, config_conversation
 
 # Load Environment variables
 load_dotenv()
-os.getenv("GROQ_API_KEY")
+
+## use for locally
+# model_api = os.getenv("GROQ_API_KEY")
+
+## Use st.secrets for Streamlit Cloud, fallback to os.getenv for local development
+model_api = st.secrets.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
 
 
 # Processing the Uploaded File
@@ -42,25 +47,26 @@ def main():
         st.session_state.uploaded_file = None
         
     
-    st.set_page_config(page_title="DoChatBot", page_icon="📜")
-    st.title("📜Q&A with Documents")
+    st.set_page_config(page_title="DoChatBot", page_icon="📃")
+    st.sidebar.title("🤖📃 | DoChatBot")
     
     ## Add any model here.....
     inference = st.sidebar.selectbox("Inference", ['Groq'], index=None, placeholder='Inferencing...')
-    model_type = st.sidebar.selectbox("LLM Models", ['Meta - Llama3', 'Google - Gemma2'], index=None, placeholder='Model Type...')
+    model_type = st.sidebar.selectbox("Models", ['Meta - Llama3', 'Google - Gemma2'], index=None, placeholder='Model Type...')
     
     if inference == 'Groq':
-        model_api = st.sidebar.text_input("Groq API Key", type="password")
-        st.sidebar.markdown("Don't have an API key? [Get it here](https://console.groq.com/keys)")
-        if not model_api:
-            st.info("Please add your **Groq API key** to continue.")
-            st.stop()
+        # model_api = st.sidebar.text_input("Groq API Key", type="password")
+        # st.sidebar.markdown("Don't have an API key? [Get it here](https://console.groq.com/keys)")
+        # if not model_api:
+        #     st.info("Please add your **Groq API key** to continue.")
+        #     st.stop()
     
         uploaded_file = st.sidebar.file_uploader(label="Upload PDF files", type=["pdf"], accept_multiple_files=True)
         
 
         if not uploaded_file:
-            st.info("Please upload **PDF documents** to continue.")
+            st.info("📢 Please upload **PDF documents** to continue. I recommend you to upload **english** documents only.")
+            st.warning("⚠️ *The larger the size and number of pages of the document, the longer it will take to process.*")
             st.stop()
         else:
             st.session_state.uploaded_file = uploaded_file
@@ -71,7 +77,7 @@ def main():
                     with st.spinner("🚀Processing..."):
                        st.session_state.conversation = processing(uploaded_file, inference, model_api, model_type)            
             with b2:
-                breset = st.sidebar.button("⚙️Reset..")
+                breset = st.sidebar.button("⏹️Reset chat..")
                 if breset:
                     with st.spinner("🥱Resetting session..."):
                         st.session_state.conversation = None

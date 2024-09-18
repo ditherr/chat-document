@@ -1,0 +1,26 @@
+# Ignore Python bytecode
+__pycache__
+*.pyc
+
+# Ignore virtual environments
+venv/
+.env/
+
+# Ignore Git repository
+.git/
+.gitignore
+
+# Ignore data files (sample)
+sample/
+*.pdf
+data/
+*.csv
+*.json
+
+# Ignore other unnecessary files
+*.log
+.DS_Store
+
+# Ignore runs
+runs/
+.streamlit/
