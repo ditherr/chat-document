@@ -18,7 +18,7 @@ load_dotenv()
 # model_api = os.getenv("GROQ_API_KEY")
 
 ## Use st.secrets for Streamlit Cloud, fallback to os.getenv for local development
-model_api = st.secrets.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
+# model_api = st.secrets.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
 
 
 # Processing the Uploaded File
@@ -55,11 +55,12 @@ def main():
     model_type = st.sidebar.selectbox("Models", ['Meta - Llama3', 'Google - Gemma2'], index=None, placeholder='Model Type...')
     
     if inference == 'Groq':
-        # model_api = st.sidebar.text_input("Groq API Key", type="password")
-        # st.sidebar.markdown("Don't have an API key? [Get it here](https://console.groq.com/keys)")
-        # if not model_api:
-        #     st.info("Please add your **Groq API key** to continue.")
-        #     st.stop()
+        st.sidebar.info("🙇Sorry... Our API Key in maintenance")
+        model_api = st.sidebar.text_input("Groq API Key", type="password")
+        st.sidebar.markdown("Create your own Groq API key [Get it here](https://console.groq.com/keys)")
+        if not model_api:
+            st.info("Please add your **Groq API key** to continue.")
+            st.stop()
     
         uploaded_file = st.sidebar.file_uploader(label="Upload PDF files", type=["pdf"], accept_multiple_files=True)
         

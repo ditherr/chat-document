@@ -54,5 +54,6 @@ If you want to use it, please add it in `secrets.toml` file. For more detail how
 ## Additional Features
 - Audio to Text
 - Add other API_KEY (OpenAI, Gemini, etc)
+- Offline models
 
 *(More features will be updated)*
