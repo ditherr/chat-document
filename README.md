@@ -4,6 +4,7 @@
 ## 🚀 About DoChatBot
 DoChatBot is a Web-app ChatBot that allows users to interact with documents that they have uploaded. Users can ask questions that are appropriate to the contents of the document, and bots assisted by the LLM model will answer these questions.
 
+⚠️(+) You need to have a **Groq API Key** to be able chat with the DoChatBot.
 
 
 https://github.com/user-attachments/assets/c03c5b9e-18b6-4fd5-ad7a-78c3b2592924
